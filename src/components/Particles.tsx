@@ -3,12 +3,20 @@
 import React, { useEffect, useRef, useState } from "react"
 import { cn } from "../lib/utils"
 
-function useMousePosition() {
-  const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 })
+type MousePos = {
+  x: number
+  y: number
+}
+
+function useMousePosition(): MousePos {
+  const [mousePosition, setMousePosition] = useState<MousePos>({ x: 0, y: 0 })
 
   useEffect(() => {
-    const handleMouseMove = (event) => {
-      setMousePosition({ x: event.clientX, y: event.clientY })
+    const handleMouseMove = (event: MouseEvent) => {
+      setMousePosition({
+        x: event.clientX,
+        y: event.clientY,
+      })
     }
 
     window.addEventListener("mousemove", handleMouseMove)
@@ -18,7 +26,7 @@ function useMousePosition() {
   return mousePosition
 }
 
-function hexToRgb(hex) {
+function hexToRgb(hex: string): [number, number, number] {
   let normalized = hex.replace("#", "")
 
   if (normalized.length === 3) {
@@ -32,7 +40,33 @@ function hexToRgb(hex) {
   return [(int >> 16) & 255, (int >> 8) & 255, int & 255]
 }
 
-export function Particles({
+type Circle = {
+  x: number
+  y: number
+  translateX: number
+  translateY: number
+  size: number
+  alpha: number
+  targetAlpha: number
+  dx: number
+  dy: number
+  magnetism: number
+}
+
+type ParticlesProps = {
+  className?: string
+  children?: React.ReactNode
+  quantity?: number
+  staticity?: number
+  ease?: number
+  size?: number
+  refresh?: boolean
+  color?: string
+  vx?: number
+  vy?: number
+}
+
+export const Particles: React.FC<ParticlesProps> = ({
   className,
   children,
   quantity = 100,
@@ -43,35 +77,43 @@ export function Particles({
   color = "#ffffff",
   vx = 0,
   vy = 0,
-}) {
-  const canvasRef = useRef(null)
-  const containerRef = useRef(null)
-  const ctx = useRef(null)
-  const circles = useRef([])
+}) => {
+  const canvasRef = useRef<HTMLCanvasElement | null>(null)
+  const containerRef = useRef<HTMLDivElement | null>(null)
+  const ctx = useRef<CanvasRenderingContext2D | null>(null)
+  const circles = useRef<Circle[]>([])
   const mousePosition = useMousePosition()
-  const mouse = useRef({ x: 0, y: 0 })
+  const mouse = useRef<MousePos>({ x: 0, y: 0 })
   const canvasSize = useRef({ w: 0, h: 0 })
-  const animationRef = useRef(null)
+  const animationRef = useRef<number | null>(null)
   const dpr = window.devicePixelRatio || 1
 
   useEffect(() => {
+    if (!canvasRef.current) return
     ctx.current = canvasRef.current.getContext("2d")
+    if (!ctx.current) return
+
     initCanvas()
     animate()
-    window.addEventListener("resize", initCanvas)
 
+    window.addEventListener("resize", initCanvas)
     return () => {
       window.removeEventListener("resize", initCanvas)
-      cancelAnimationFrame(animationRef.current)
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current)
+      }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [color])
 
   useEffect(() => {
     updateMouse()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [mousePosition])
 
   useEffect(() => {
     initCanvas()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [refresh])
 
   const initCanvas = () => {
@@ -80,27 +122,37 @@ export function Particles({
   }
 
   const updateMouse = () => {
+    if (!canvasRef.current) return
+
     const rect = canvasRef.current.getBoundingClientRect()
     const { w, h } = canvasSize.current
+
     const x = mousePosition.x - rect.left - w / 2
     const y = mousePosition.y - rect.top - h / 2
+
     if (Math.abs(x) < w / 2 && Math.abs(y) < h / 2) {
       mouse.current = { x, y }
     }
   }
 
   const resizeCanvas = () => {
+    if (!canvasRef.current || !containerRef.current || !ctx.current) return
+
     circles.current = []
+
     canvasSize.current.w = containerRef.current.offsetWidth
     canvasSize.current.h = containerRef.current.offsetHeight
+
     canvasRef.current.width = canvasSize.current.w * dpr
     canvasRef.current.height = canvasSize.current.h * dpr
+
     canvasRef.current.style.width = `${canvasSize.current.w}px`
     canvasRef.current.style.height = `${canvasSize.current.h}px`
+
     ctx.current.setTransform(dpr, 0, 0, dpr, 0, 0)
   }
 
-  const createCircle = () => ({
+  const createCircle = (): Circle => ({
     x: Math.random() * canvasSize.current.w,
     y: Math.random() * canvasSize.current.h,
     translateX: 0,
@@ -115,7 +167,9 @@ export function Particles({
 
   const rgb = hexToRgb(color)
 
-  const drawCircle = (circle) => {
+  const drawCircle = (circle: Circle) => {
+    if (!ctx.current) return
+
     ctx.current.beginPath()
     ctx.current.arc(circle.x, circle.y, circle.size, 0, Math.PI * 2)
     ctx.current.fillStyle = `rgba(${rgb.join(",")},${circle.alpha})`
@@ -127,19 +181,27 @@ export function Particles({
   }
 
   const animate = () => {
-    ctx.current.clearRect(0, 0, canvasSize.current.w, canvasSize.current.h)
+    if (!ctx.current) return
+
+    ctx.current.clearRect(
+      0,
+      0,
+      canvasSize.current.w,
+      canvasSize.current.h
+    )
 
     circles.current.forEach((c) => {
       c.alpha += (c.targetAlpha - c.alpha) * 0.05
       c.x += c.dx + vx
       c.y += c.dy + vy
+
       c.translateX += (mouse.current.x / staticity - c.translateX) / ease
       c.translateY += (mouse.current.y / staticity - c.translateY) / ease
 
-      ctx.current.save()
-      ctx.current.translate(c.translateX, c.translateY)
+      ctx.current!.save()
+      ctx.current!.translate(c.translateX, c.translateY)
       drawCircle(c)
-      ctx.current.restore()
+      ctx.current!.restore()
 
       if (
         c.x < 0 ||
