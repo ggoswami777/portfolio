@@ -6,6 +6,7 @@ import Time from "./components/Time"
 import HeaderRight from "./components/HeaderRight"
 import { TryIt } from "./components/TryIt"
 import ProfileCard from "./components/ProfileCard"
+import { StatusCards } from "./components/StatusCards"
 import { useTheme } from "./components/ThemeProvider"
 
 const App: React.FC = () => {
@@ -13,10 +14,10 @@ const App: React.FC = () => {
   const { theme } = useTheme()
 
   return (
-    /* We use the theme variables defined in your @theme block */
+   
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-hidden transition-colors duration-500">
       
-      {/* Dashed Guides - Now using the dynamic variable */}
+ 
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute top-[80px] left-0 right-0 border-t border-dashed border-border-dashed" />
         <div className="absolute left-[18%] top-0 h-full border-l border-dashed border-border-dashed" />
@@ -59,6 +60,7 @@ const App: React.FC = () => {
       <main className="relative z-20 px-[18%] pt-5">
         <TryIt />
         <ProfileCard />
+        <StatusCards/>
       </main>
     </div>
   )
