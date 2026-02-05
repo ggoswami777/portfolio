@@ -43,8 +43,8 @@ export const StatusCards = () => {
                       
         <div className="relative">
           <div className="h-10 w-10 rounded-lg overflow-hidden bg-text-primary/10 flex items-center justify-center group-hover:scale-105 transition-transform">
-        
-            <Music className="w-5 h-5 opacity-40 group-hover:opacity-80 transition-opacity" />
+            <img className="w-full h-full opacity-40 group-hover:opacity-80 transition-opacity" src="https://i.scdn.co/image/ab67616d0000b2734cb6d231300bad26b77fa85e" alt="" />
+           
           </div>
           <div className="absolute -bottom-1 -right-1 w-3 h-3 bg-green-500 rounded-full border-2 border-bg-primary animate-pulse shadow-[0_0_10px_rgba(34,197,94,0.5)]" />
         </div>
