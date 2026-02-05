@@ -9,10 +9,19 @@ import ProfileCard from "./components/ProfileCard";
 import { StatusCards } from "./components/StatusCards";
 import { useTheme } from "./components/ThemeProvider";
 import { GitHubActivity } from "./components/GithubActivity";
+import MacOSDock from "./components/MacOsDock";
 
 const App: React.FC = () => {
   const [showHello, setShowHello] = useState(true);
   const { theme } = useTheme();
+  const handleAppClick = (id: string) => {
+    if (id === "home") {
+      const homeSection = document.getElementById("home");
+      homeSection?.scrollIntoView({ behavior: "smooth" });
+    }
+    console.log("Navigating to:", id);
+    // Add your navigation or theme toggle logic here
+  };
 useEffect(() => {
   if (showHello) {
     document.body.style.overflow = 'hidden';
@@ -53,7 +62,7 @@ useEffect(() => {
       </AnimatePresence>
 
       {/* Top Header Section */}
-      <header className="relative z-50 w-full flex justify-between items-start pt-6 px-[18%]">
+      <header id="home" className="relative z-50 w-full flex justify-between items-start pt-6 px-[18%]">
         <div className="px-5">
           <Time />
         </div>
@@ -74,7 +83,9 @@ useEffect(() => {
        <div className="mt-5 mb-2 px-5">
           <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
         </div>
+        <MacOSDock onAppClick={handleAppClick}/>
       </main>
+      
     </div>
   );
 };
