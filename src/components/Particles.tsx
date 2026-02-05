@@ -219,7 +219,7 @@ export const Particles: React.FC<ParticlesProps> = ({
   return (
     <div
       ref={containerRef}
-      className={cn("fixed inset-0 overflow-hidden bg-neutral-950", className)}
+      className={cn("fixed inset-0 overflow-hidden bg-transparent", className)}
     >
       <canvas ref={canvasRef} className="absolute inset-0" />
       {children && <div className="relative z-10">{children}</div>}
