@@ -13,6 +13,7 @@ import {
   Linkedin, 
   SunMoon 
 } from "lucide-react"
+import { useLanguage } from "./LanguageContext"
 
 const XIcon = ({ size = 18 }: { size?: number }) => (
   <svg width={size} height={size} viewBox="0 0 24 24" fill="currentColor">
@@ -49,17 +50,22 @@ const MacOSDock = ({ onAppClick }: { onAppClick: (id: string) => void }) => {
       if (timerRef.current) clearTimeout(timerRef.current)
     }
   }, [])
-
+  const {t}=useLanguage();
+  const home=t("home");
+  const projects=t("projects");
+  const stack=t("stack");
+  const contact=t("contact");
+  const themes=t("theme");
   const apps = [
-    { id: "home", name: "Home", icon: <Home size={19} />, url: "#" },
-    { id: "projects", name: "Projects", icon: <Code2 size={19} />, url: "#projects" },
-    { id: "stack", name: "Stack", icon: <Layers size={19} />, url: "#stack" },
-    { id: "contact", name: "Contact", icon: <Mail size={19} />, url: "mailto:gauravnick777@gmail.com" },
+    { id: "home", name:home, icon: <Home size={19} />, url: "#" },
+    { id: "projects", name:projects, icon: <Code2 size={19} />, url: "#projects" },
+    { id: "stack", name:stack, icon: <Layers size={19} />, url: "#stack" },
+    { id: "contact", name:contact, icon: <Mail size={19} />, url: "mailto:gauravnick777@gmail.com" },
     { id: "divider", name: "divider", icon: null }, 
     { id: "github", name: "GitHub", icon: <Github size={19} />, url: "https://github.com/ggoswami777" },
     { id: "linkedin", name: "LinkedIn", icon: <Linkedin size={19} />, url: "https://www.linkedin.com/in/gaurav-goswami-4567a1364" },
     { id: "twitter", name: "X", icon: <XIcon size={17} />, url: "https://x.com/gauravnickk777" },
-    { id: "theme", name: "Theme", icon: <SunMoon size={19} /> },
+    { id: "theme", name:themes, icon: <SunMoon size={19} /> },
   ]
 
   const handleAppClick = (app: any) => {

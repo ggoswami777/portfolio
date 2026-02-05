@@ -3,6 +3,7 @@
 import React, { useEffect, useState } from "react"
 import { Tooltip as ReactTooltip } from "react-tooltip"
 import "react-tooltip/dist/react-tooltip.css"
+import { useLanguage } from "./LanguageContext"
 
 interface ContributionDay {
   date: string
@@ -19,6 +20,7 @@ const getLevelFromCount = (count: number) => {
 }
 
 export const GitHubActivity = () => {
+  const {t}=useLanguage();
   const username = "ggoswami777"
   const [data, setData] = useState<{
     total: number
@@ -81,7 +83,7 @@ export const GitHubActivity = () => {
 
       {/* Header aligned left as per image */}
       <h2 className="text-2xl font-bold mb-8 tracking-tight text-[var(--color-text-primary)]">
-        GitHub Activity
+        GitHub {t("activity")}
       </h2>
 
       <div className="relative">
@@ -128,7 +130,7 @@ export const GitHubActivity = () => {
         {/* Footer Statistics - Flex layout to match reference */}
         <div className="mt-6 flex justify-between items-center text-[13px] text-[var(--gh-text)]">
           <div>
-            {data.total.toLocaleString()} contributions in the last year on GitHub
+            {data.total.toLocaleString()} {t("contribution")}
           </div>
           
           <div className="flex items-center gap-2">

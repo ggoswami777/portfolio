@@ -6,13 +6,19 @@ import { AnimatePresence, motion } from "framer-motion";
 import BlurText from "./BlurText";
 import DinoGame from "./DinoGame";
 import TypingText from "./TypingText"; // Import the component you provided
+import { useLanguage } from "./LanguageContext";
 
-const roles = ["DSA Enthusiast", "Web Developer", "AI Explorer"];
+
 
 const ProfileCard = () => {
+  const{t}=useLanguage();
+  const role1=t("role1")
+  const role2=t("role2")
+  const role3=t("role3")
+  const roles = [role1,role2,role3];
   const [currentRoleIndex, setCurrentRoleIndex] = useState(0);
   const [showGame, setShowGame] = useState(false);
-
+  
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentRoleIndex((prev) => (prev + 1) % roles.length);
@@ -57,7 +63,7 @@ const ProfileCard = () => {
                 >
                   <div className="absolute -top-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1.5 opacity-40 group-hover:opacity-100 transition-opacity">
                     <span className="text-[10px] font-bold mt-3 uppercase tracking-[0.2em] whitespace-nowrap animate-bounce text-text-primary">
-                      ↓ play game
+                      ↓ {t("playgame")}
                     </span>
                   </div>
                   <div className="h-32 w-32 rounded-xl overflow-hidden border border-border-dashed p-1 bg-text-primary/5 transition-all duration-300 group-hover:border-text-primary/40 active:scale-95">
@@ -122,8 +128,7 @@ const ProfileCard = () => {
               {/* Footer Bio */}
               <div className="mt-12 pt-8 border-t border-dashed border-border-dashed">
                 <p className="text-[15px] opacity-70 leading-relaxed font-medium text-center max-w-[90%] mx-auto tracking-tight text-text-primary/80">
-                  I make things that work. Sometimes they matter. Now exploring
-                  Web3.
+                  {t("bio")}
                 </p>
               </div>
             </motion.div>

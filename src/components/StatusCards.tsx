@@ -2,8 +2,10 @@
 
 import React from "react"
 import { Github, Music } from "lucide-react"
+import { useLanguage } from "./LanguageContext"
 
 export const StatusCards = () => {
+  const {t}=useLanguage();
   return (
     <div className="flex flex-wrap justify-center gap-4 mt-8">
       {/* GitHub Card */}
@@ -23,7 +25,7 @@ export const StatusCards = () => {
         </div>
         <div className="flex flex-col">
           <span className="text-[10px] font-bold uppercase tracking-[0.15em] opacity-40 group-hover:opacity-70 transition-opacity">
-            Currently Building
+            {t("building")}
           </span>
           <span className="text-sm font-semibold tracking-tight">Codemeet</span>
         </div>
@@ -53,7 +55,7 @@ export const StatusCards = () => {
             Man in the Mirror
           </span>
           <span className="text-[10px] opacity-40 font-medium uppercase tracking-wider">
-            Dave East • Last Played
+            Dave East • {t("spotify")}
           </span>
         </div>
       </div>

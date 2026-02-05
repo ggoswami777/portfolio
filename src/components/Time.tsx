@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react'
+import { useLanguage } from './LanguageContext'
 
 function Time() {
     const [time, setTime] = useState("")
@@ -20,9 +21,10 @@ function Time() {
         const timer = setInterval(updateTime, 1000)
         return () => clearInterval(timer)
     }, [])
-
+        const { t } = useLanguage();
     return (
         /* Removed 'absolute' and 'top-5' so it doesn't fight with your App.jsx layout */
+        
         <div className="flex flex-col">
             {/* Dynamic Time */}
             <p className="font-outfit font-semibold text-xl tracking-wide tabular-nums">
@@ -34,7 +36,7 @@ function Time() {
                but just slightly faded.
             */}
             <p className="font-sn text-[11px] opacity-60 uppercase tracking-widest mt-1">
-                GMT +5:30 • Mumbai, India
+                {t("time")}
             </p>
         </div>
     )

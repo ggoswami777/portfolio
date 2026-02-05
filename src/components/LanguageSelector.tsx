@@ -3,9 +3,11 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { ChevronDown, Check } from 'lucide-react' 
+import { useLanguage } from './LanguageContext'
+import { cn } from '../lib/utils'
 
 interface Language {
-  code: string;
+  code: string; 
   name: string;
 }
 
@@ -20,11 +22,11 @@ const languages: Language[] = [
 
 export function LanguageSelector() {
   const [isOpen, setIsOpen] = useState(false)
-  // FIXED: Added 'as Language' to remove the TypeScript red line
-  const [selected, setSelected] = useState<Language>(languages[0] as Language)
+  const { lang: currentLang, setLang } = useLanguage() 
   const containerRef = useRef<HTMLDivElement>(null)
 
-  // Close when clicking outside
+  const selected = languages.find(l => l.code === currentLang) || languages[0]
+
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (containerRef.current && !containerRef.current.contains(event.target as Node)) {
@@ -37,15 +39,20 @@ export function LanguageSelector() {
 
   return (
     <div className="relative font-sn" ref={containerRef} style={{ zIndex: 9999 }}>
-     <button
-  type="button"
-  onClick={() => setIsOpen(!isOpen)}
-  className={`flex items-center gap-2 px-3 py-1.5 rounded-md border border-app-accent bg-app-bg hover:bg-app-accent transition-all cursor-pointer min-w-[90px] justify-between focus:outline-none select-none
-    ${isOpen ? "pointer-events-none" : ""}`}
->
-
+      <button
+        type="button"
+        onClick={() => setIsOpen(!isOpen)}
+        className={cn(
+          "flex items-center gap-2 px-3 py-1.5 rounded-md transition-all cursor-pointer min-w-[90px] justify-between focus:outline-none select-none",
+          // Uses your theme variables
+          "border border-[color:var(--color-border-dashed)]",
+          "bg-[color:var(--color-bg-primary)] text-[color:var(--color-text-primary)]",
+          "hover:bg-[color:var(--color-text-primary)]/[0.05]",
+          isOpen && "pointer-events-none opacity-50"
+        )}
+      >
         <span className="text-sm font-bold tracking-tighter">{selected.code}</span>
-        <ChevronDown className={`w-3 h-3 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`} />
+        <ChevronDown className={cn("w-3 h-3 transition-transform duration-200", isOpen ? 'rotate-180' : '')} />
       </button>
 
       <AnimatePresence>
@@ -54,31 +61,35 @@ export function LanguageSelector() {
             initial={{ opacity: 0, y: 5 }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
-            // absolute z-index ensures it floats over the dashed guides
-            className="absolute right-0 bg-bg-primary top-full mt-2 z-[10000] w-48 py-2 rounded-lg border border-app-accent bg-app-bg shadow-2xl overflow-hidden"
+            className={cn(
+              "absolute right-0 top-full mt-2 z-[10000] w-48 py-2 rounded-lg shadow-2xl overflow-hidden backdrop-blur-xl",
+              // The dropdown now uses your background and border variables
+              "bg-[color:var(--color-bg-primary)]/90 border border-[color:var(--color-border-dashed)]"
+            )}
           >
             <div className="flex flex-col">
-              {languages.map((lang) => (
+              {languages.map((l) => (
                 <div
-                  key={lang.code}
-                  // onPointerDown fires the INSTANT the mouse touches the button
+                  key={l.code}
                   onPointerDown={(e) => {
                     e.preventDefault();
-                    e.stopPropagation();
-                    setSelected(lang);
+                    setLang(l.code as any);
                     setIsOpen(false);
                   }}
-                  className="w-full flex items-center justify-between px-4 py-3 text-sm cursor-pointer hover:bg-black/5 dark:hover:bg-white/10 transition-colors group text-left"
+                  className={cn(
+                    "w-full flex items-center justify-between px-4 py-3 text-sm cursor-pointer transition-colors group text-left",
+                    "text-[color:var(--color-text-primary)] hover:bg-[color:var(--color-text-primary)]/[0.08]"
+                  )}
                 >
                   <div className="flex items-center gap-4 pointer-events-none">
                     <span className="font-bold text-[10px] opacity-40 group-hover:opacity-100 min-w-[20px]">
-                      {lang.code}
+                      {l.code}
                     </span>
-                    <span className={`${selected.code === lang.code ? 'font-bold' : 'font-normal'}`}>
-                      {lang.name}
+                    <span className={cn(selected.code === l.code ? 'font-bold' : 'font-normal')}>
+                      {l.name}
                     </span>
                   </div>
-                  {selected.code === lang.code && <Check className="w-4 h-4" />}
+                  {selected.code === l.code && <Check className="w-4 h-4" />}
                 </div>
               ))}
             </div>

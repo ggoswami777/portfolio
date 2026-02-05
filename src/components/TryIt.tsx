@@ -2,11 +2,12 @@
 
 import React, { useState } from 'react'
 import { Copy, Check } from 'lucide-react'
+import { useLanguage } from './LanguageContext'
 
 export const TryIt = () => {
   const [copied, setCopied] = useState(false)
   const command = "npx gauravvv"
-
+  const{t}=useLanguage();
   const handleCopy = async () => {
     try {
       await navigator.clipboard.writeText(command)
@@ -23,7 +24,7 @@ export const TryIt = () => {
         
         {/* Label */}
         <span className="text-[13px] opacity-50 font-medium tracking-tight whitespace-nowrap">
-          Try it:
+          {t("tryIt")}
         </span>
 
         {/* Command Box */}

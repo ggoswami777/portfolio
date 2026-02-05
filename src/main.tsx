@@ -3,6 +3,7 @@ import ReactDOM from "react-dom/client";
 import "./index.css";
 import App from "./App";
 import { ThemeProvider } from "./components/ThemeProvider";
+import { LanguageProvider } from "./components/LanguageContext";
 
 const root = document.getElementById("root");
 
@@ -12,8 +13,11 @@ if (!root) {
 
 ReactDOM.createRoot(root).render(
   <React.StrictMode>
-    <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
+    <LanguageProvider>
+      <ThemeProvider defaultTheme="dark" storageKey="vite-ui-theme">
       <App />
     </ThemeProvider>
+    </LanguageProvider>
+    
   </React.StrictMode>,
 );
