@@ -1,5 +1,5 @@
 // components/ModeToggle.tsx
-import { useTheme } from "@/components/ThemeProvider"
+import { useTheme } from "./ThemeProvider"
 import { motion } from "framer-motion"
 
 export function ModeToggle() {
