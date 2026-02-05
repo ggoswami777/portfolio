@@ -21,7 +21,7 @@ const ProfileCard = () => {
   }, []);
 
   return (
-    <div className="relative w-full max-w-[760px] mx-auto mt-7 font-sn bg-bg-primary text-text-primary transition-colors duration-500">
+    <div className="relative w-full max-w-[760px] mx-auto mt-7 font-sn bg-transparent text-text-primary transition-colors duration-500">
       <div className="relative rounded-xl border border-dashed border-border-dashed bg-transparent px-10 py-10 shadow-sm overflow-hidden">
         <AnimatePresence mode="wait">
           {!showGame ? (

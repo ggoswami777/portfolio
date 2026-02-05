@@ -58,7 +58,7 @@ const MacOSDock = ({ onAppClick }: { onAppClick: (id: string) => void }) => {
     { id: "divider", name: "divider", icon: null }, 
     { id: "github", name: "GitHub", icon: <Github size={19} />, url: "https://github.com/ggoswami777" },
     { id: "linkedin", name: "LinkedIn", icon: <Linkedin size={19} />, url: "https://www.linkedin.com/in/gaurav-goswami-4567a1364" },
-    { id: "twitter", name: "X", icon: <XIcon size={17} />, url: "https://x.com/gauravnick777" },
+    { id: "twitter", name: "X", icon: <XIcon size={17} />, url: "https://x.com/gauravnickk777" },
     { id: "theme", name: "Theme", icon: <SunMoon size={19} /> },
   ]
 

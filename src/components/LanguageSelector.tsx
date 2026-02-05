@@ -55,7 +55,7 @@ export function LanguageSelector() {
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: 5 }}
             // absolute z-index ensures it floats over the dashed guides
-            className="absolute right-0 top-full mt-2 z-[10000] w-48 py-2 rounded-lg border border-app-accent bg-app-bg shadow-2xl overflow-hidden"
+            className="absolute right-0 bg-bg-primary top-full mt-2 z-[10000] w-48 py-2 rounded-lg border border-app-accent bg-app-bg shadow-2xl overflow-hidden"
           >
             <div className="flex flex-col">
               {languages.map((lang) => (
