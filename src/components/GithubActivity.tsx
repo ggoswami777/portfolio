@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState, useMemo } from "react"
 import { Tooltip as ReactTooltip } from "react-tooltip"
 import "react-tooltip/dist/react-tooltip.css"
 import { useLanguage } from "./LanguageContext"
@@ -20,12 +20,25 @@ const getLevelFromCount = (count: number) => {
 }
 
 export const GitHubActivity = () => {
-  const {t}=useLanguage();
+  const { t } = useLanguage();
   const username = "ggoswami777"
   const [data, setData] = useState<{
     total: number
     contributions: ContributionDay[]
   } | null>(null)
+
+  // Dynamically calculate month labels based on current date
+  const dynamicMonths = useMemo(() => {
+    const months = [];
+    const date = new Date();
+    // Start 11 months ago
+    date.setMonth(date.getMonth() - 11);
+    for (let i = 0; i < 13; i++) {
+      months.push(date.toLocaleString('default', { month: 'short' }));
+      date.setMonth(date.getMonth() + 1);
+    }
+    return months;
+  }, []);
 
   useEffect(() => {
     fetch(`https://github-contributions-api.deno.dev/${username}.json`)
@@ -41,13 +54,12 @@ export const GitHubActivity = () => {
               level: getLevelFromCount(count),
             }
           })
-        const lastYearData = allDays.slice(-371) // Adjusted to ensure full weeks
+        // Always take the most recent 371 days (53 weeks)
+        const lastYearData = allDays.slice(-371) 
         setData({ total: res.totalContributions, contributions: lastYearData })
       })
       .catch(err => console.error("GitHub fetch error:", err))
   }, [])
-
-  const months = ["Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec", "Jan", "Feb"]
 
   if (!data) return null;
 
@@ -81,21 +93,20 @@ export const GitHubActivity = () => {
         }
       `}</style>
 
-      {/* Header aligned left as per image */}
       <h2 className="text-2xl font-bold mb-8 tracking-tight text-[var(--color-text-primary)]">
         GitHub {t("activity")}
       </h2>
 
       <div className="relative">
         <svg width="800" height="110" className="overflow-visible">
-          {/* Month Labels */}
+          {/* Dynamic Month Labels */}
           <g className="text-[10px] fill-[var(--gh-text)] font-medium">
-            {months.map((m, i) => (
+            {dynamicMonths.map((m, i) => (
               <text key={i} x={15 + i * 62} y="-10">{m}</text>
             ))}
           </g>
 
-          {/* Day Labels - Only Mon, Wed, Fri as per reference */}
+          {/* Day Labels */}
           <g className="text-[9px] fill-[var(--gh-text)] font-medium">
             <text x="-25" y="28">Mon</text>
             <text x="-25" y="56">Wed</text>
@@ -127,7 +138,6 @@ export const GitHubActivity = () => {
           </g>
         </svg>
 
-        {/* Footer Statistics - Flex layout to match reference */}
         <div className="mt-6 flex justify-between items-center text-[13px] text-[var(--gh-text)]">
           <div>
             {data.total.toLocaleString()} {t("contribution")}
