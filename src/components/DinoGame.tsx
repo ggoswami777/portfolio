@@ -22,7 +22,7 @@ const DinoGame = ({ onExit }: { onExit: () => void }) => {
     const ctx = canvas.getContext("2d")
     if (!ctx) return
 
-    // Helper to get colors from our CSS Variables
+
     const getThemeColor = (varName: string) => {
       return getComputedStyle(document.documentElement).getPropertyValue(varName).trim() || "#000"
     }

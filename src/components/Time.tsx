@@ -21,21 +21,17 @@ function Time() {
         const timer = setInterval(updateTime, 1000)
         return () => clearInterval(timer)
     }, [])
-        const { t } = useLanguage();
+
+    const { t } = useLanguage();
+
     return (
-        /* Removed 'absolute' and 'top-5' so it doesn't fight with your App.jsx layout */
-        
-        <div className="flex flex-col">
-            {/* Dynamic Time */}
-            <p className="font-outfit font-semibold text-xl tracking-wide tabular-nums">
+    
+        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
+            <p className="font-outfit font-semibold text-lg md:text-xl tracking-wide tabular-nums text-[color:var(--color-text-primary)]">
                 {time || "00:00:00 AM"} 
             </p>
-            
-            {/* FIX: Changed text-white/60 to opacity-60. 
-               This ensures it stays the same color as the main text (Black or White) 
-               but just slightly faded.
-            */}
-            <p className="font-sn text-[11px] opacity-60 uppercase tracking-widest mt-1">
+
+            <p className="font-sn text-[9px] md:text-[11px] opacity-60 uppercase tracking-widest mt-1">
                 {t("time")}
             </p>
         </div>

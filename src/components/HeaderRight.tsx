@@ -4,7 +4,8 @@ import { LanguageSelector } from './LanguageSelector'
 
 function HeaderRight() {
   return (
-    <div className='flex gap-5'>
+   
+    <div className='flex items-center gap-3 sm:gap-5'>
       <ModeToggle/>
       <LanguageSelector/>
     </div>
