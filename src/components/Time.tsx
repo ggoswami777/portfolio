@@ -3,6 +3,7 @@ import { useLanguage } from './LanguageContext'
 
 function Time() {
     const [time, setTime] = useState("")
+    const { t } = useLanguage();
 
     useEffect(() => {
         const updateTime = () => {
@@ -22,17 +23,14 @@ function Time() {
         return () => clearInterval(timer)
     }, [])
 
-    const { t } = useLanguage();
-
     return (
-    
-        <div className="flex flex-col items-center sm:items-start text-center sm:text-left">
-            <p className="font-outfit font-semibold text-lg md:text-xl tracking-wide tabular-nums text-[color:var(--color-text-primary)]">
+        <div className="flex flex-col items-start text-left">
+            <p className="font-outfit font-semibold text-base sm:text-xl tracking-wide tabular-nums text-[color:var(--color-text-primary)] leading-tight">
                 {time || "00:00:00 AM"} 
             </p>
 
-            <p className="font-sn text-[9px] md:text-[11px] opacity-60 uppercase tracking-widest mt-1">
-                {t("time")}
+            <p className="font-sn text-[8px] sm:text-[11px] opacity-60 uppercase tracking-tight sm:tracking-widest mt-0.5 whitespace-nowrap">
+                GMT + 5:30 • Mumbai, India
             </p>
         </div>
     )
