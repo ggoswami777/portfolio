@@ -69,30 +69,36 @@ export const GitHubActivity = () => {
 
   return (
     <div className="w-full max-w-[850px] mx-auto py-12 px-4 select-none font-outfit">
-      <style jsx global>{`
-        /* Definitive scrollbar hide */
-        .no-scrollbar::-webkit-scrollbar {
-          display: none !important;
-        }
-        .no-scrollbar {
-          -ms-overflow-style: none !important;
-          scrollbar-width: none !important;
-        }
+    
+      <style>
+        {`
+          .no-scrollbar::-webkit-scrollbar {
+            display: none !important;
+          }
+          .no-scrollbar {
+            -ms-overflow-style: none !important;
+            scrollbar-width: none !important;
+          }
 
-        :root { --gh-l0: #ebedf0; --gh-l1: #9be9a8; --gh-l2: #40c463; --gh-l3: #30a14e; --gh-l4: #216e39; --gh-text: #666; }
-        .dark { --gh-l0: #161b22; --gh-l1: #30363d; --gh-l2: #6e7681; --gh-l3: #afb8c1; --gh-l4: #ffffff; --gh-text: #888; }
-        
-        .rect-stellar {
-          transition: transform 0.2s ease;
-          transform-origin: center;
-          transform-box: fill-box;
-        }
-        .rect-stellar:hover {
-          transform: scale(1.3);
-          stroke: var(--color-text-primary);
-          stroke-width: 0.5px;
-        }
-      `}</style>
+          :root { 
+            --gh-l0: #ebedf0; --gh-l1: #9be9a8; --gh-l2: #40c463; --gh-l3: #30a14e; --gh-l4: #216e39; --gh-text: #666; 
+          }
+          .dark { 
+            --gh-l0: #161b22; --gh-l1: #30363d; --gh-l2: #6e7681; --gh-l3: #afb8c1; --gh-l4: #ffffff; --gh-text: #888; 
+          }
+          
+          .rect-stellar {
+            transition: transform 0.2s ease;
+            transform-origin: center;
+            transform-box: fill-box;
+          }
+          .rect-stellar:hover {
+            transform: scale(1.3);
+            stroke: var(--color-text-primary);
+            stroke-width: 0.5px;
+          }
+        `}
+      </style>
 
       <h2 className="text-2xl font-bold mb-8 tracking-tight text-[var(--color-text-primary)]">
         GitHub {t("activity")}

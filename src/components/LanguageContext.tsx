@@ -2,17 +2,27 @@
 import React, { createContext, useContext, useState } from "react"
 import { content, LanguageCode } from "../lib/translations"
 
-const LanguageContext = createContext({
-  lang: "EN" as LanguageCode,
-  setLang: (l: LanguageCode) => {},
-  t: (key: keyof typeof content.EN) => ""
+
+interface LanguageContextType {
+  lang: LanguageCode;
+  setLang: (l: LanguageCode) => void;
+  t: (key: keyof typeof content.EN) => string; // Force it to expect any string
+}
+
+
+const LanguageContext = createContext<LanguageContextType>({
+  lang: "EN",
+  setLang: () => {},
+  t: () => "" 
 })
 
 export const LanguageProvider = ({ children }: { children: React.ReactNode }) => {
   const [lang, setLang] = useState<LanguageCode>("EN")
 
-  // This 't' function gets the translation for a key
-  const t = (key: keyof typeof content.EN) => content[lang][key] || content.EN[key]
+
+  const t = (key: keyof typeof content.EN): string => {
+    return (content[lang] as any)[key] || (content.EN as any)[key] || "";
+  }
 
   return (
     <LanguageContext.Provider value={{ lang, setLang, t }}>
