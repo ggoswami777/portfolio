@@ -33,7 +33,7 @@ const ProfileCard = () => {
               exit={{ opacity: 0, y: -10 }}
               transition={{ duration: 0.3 }}
             >
-              {/* Center on mobile, top-right on desktop */}
+              {/* Links: Centered on mobile, top-right on desktop */}
               <div className="absolute top-4 left-1/2 -translate-x-1/2 sm:left-auto sm:translate-x-0 sm:top-6 sm:right-6 flex gap-2 z-30">
                 <a 
                   href="https://x.com/gauravnickk777" 
@@ -55,12 +55,19 @@ const ProfileCard = () => {
                 </a>
               </div>
 
-              {/* Row Layout for Avatar + Info */}
               <div className="flex flex-row gap-4 sm:gap-10 items-start mt-4 sm:mt-0">
+                {/* Avatar Section */}
                 <div
                   className="relative shrink-0 cursor-pointer group"
                   onClick={() => { if (window.innerWidth > 640) setShowGame(true); }}
                 >
+                  {/* Restored Play Game Arrow (Laptop Only) */}
+                  <div className="hidden sm:flex absolute -top-8 left-1/2 -translate-x-1/2 flex-col items-center gap-1.5 opacity-40 group-hover:opacity-100 transition-opacity">
+                    <span className="text-[10px] font-bold mt-3 uppercase tracking-[0.2em] whitespace-nowrap animate-bounce text-text-primary">
+                      ↓ {t("playgame")}
+                    </span>
+                  </div>
+
                   <div className="h-20 w-20 sm:h-32 sm:w-32 rounded-xl overflow-hidden border border-border-dashed p-1 bg-text-primary/5">
                     <img
                       src="/avatar.jpg"
@@ -70,13 +77,14 @@ const ProfileCard = () => {
                   </div>
                 </div>
 
+                {/* Info Section */}
                 <div className="flex-1 pt-1 text-left min-w-0">
                   <div className="flex items-center justify-start gap-1.5 sm:gap-3 mb-1">
                     <TypingText
                       text="Gauravvv"
                       as="h1"
                       typingSpeed={100}
-                      initialDelay={4200} 
+                      initialDelay={1000} 
                       showCursor={false}
                       className="text-xl sm:text-4xl font-semibold font-black tracking-tighter uppercase leading-none truncate"
                     />

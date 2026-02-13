@@ -52,44 +52,64 @@ const App: React.FC = () => {
 
       <AnimatePresence>
         {showHello && (
-          <motion.div className="fixed inset-0 z-[100] flex items-center justify-center bg-black">
+          <motion.div 
+            key="hello-screen"
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
+            exit={{ opacity: 0 }} // Smooth transition out
+            transition={{ duration: 0.5 }}
+          >
             <Hello onDone={() => setTimeout(() => setShowHello(false), 800)} />
           </motion.div>
         )}
       </AnimatePresence>
 
-      {/* Header - Row always, space-between */}
-      <header id="home" className="relative z-50 w-full flex flex-row justify-between items-start pt-6 px-4 md:px-[18%]">
-        <div className="px-2 sm:px-5">
-          <Time />
-        </div>
-        <div className="px-2 sm:px-5">
-          <HeaderRight />
-        </div>
-      </header>
+      {/* Main Content Animation Wrapper */}
+      {!showHello && (
+        <motion.div
+          initial={{ opacity: 0, y: -50 }} // Start 50px higher
+          animate={{ opacity: 1, y: 0 }}    // Drop down to original position
+          transition={{ 
+            duration: 1, 
+            ease: [0.22, 1, 0.36, 1], // Smooth "out-quint" easing
+            delay: 0.2 
+          }}
+        >
+          {/* Header */}
+          <header id="home" className="relative z-50 w-full flex flex-row justify-between items-start pt-6 px-4 md:px-[18%]">
+            <div className="px-2 sm:px-5">
+              <Time />
+            </div>
+            <div className="px-2 sm:px-5">
+              <HeaderRight />
+            </div>
+          </header>
 
-      {/* Main Content */}
-      <main className="relative z-20 px-2 sm:px-4 md:px-[18%] pt-5 pb-32">
-        <div className="w-full">
-          <TryIt />
-          <ProfileCard />
-          <StatusCards />
-        </div>
+          {/* Main Content */}
+          <main className="relative z-20 px-2 sm:px-4 md:px-[18%] pt-5 md:pt-10 pb-32">
+            <div className="w-full">
+              <TryIt />
+              <ProfileCard />
+              <StatusCards />
+            </div>
 
-        <div className="mt-8 sm:mt-12 mb-5 px-4">
-          <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
-        </div>
+            <div className="mt-8 sm:mt-12 mb-5  px-4">
+              <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
+            </div>
 
-        <div className="overflow-x-auto no-scrollbar py-4 px-2">
-           <GitHubActivity />
-        </div>
+            <div className="overflow-x-auto no-scrollbar md:py-4 px-2 md:px-10">
+               <GitHubActivity />
+            </div>
 
-        <div className="mt-5 mb-2 px-4">
-          <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
-        </div>
-  
-        <MacOSDock onAppClick={handleAppClick}/>
-      </main>
+            <div className="mt-5 mb-2 px-4">
+              <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
+            </div>
+            
+            <div className="hidden md:block">
+              <MacOSDock onAppClick={handleAppClick}/>
+            </div>
+          </main>
+        </motion.div>
+      )}
     </div>
   );
 };

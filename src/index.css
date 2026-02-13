@@ -6,20 +6,20 @@
   --font-outfit: "Outfit", ui-sans-serif, system-ui;
   --font-sn: "SN Pro", ui-sans-serif, system-ui;
 
-  /* Define your "Theme Colors" here */
+
   --color-bg-primary: white;
   --color-text-primary: black;
   --color-border-dashed: rgba(0, 0, 0, 0.1);
 }
 
-/* This is the magic part: it flips the variables */
+
 .dark {
   --color-bg-primary: black;
   --color-text-primary: white;
   --color-border-dashed: rgba(255, 255, 255, 0.1);
 }
 
-/* Force global background and text color transitions */
+
 body {
   background-color: var(--color-bg-primary);
   color: var(--color-text-primary);
@@ -29,33 +29,32 @@ body {
 @layer components {
   .animated-border-container {
     position: relative;
-    padding: 1.5px; /* Slightly thicker for better visibility */
+    padding: 1.5px; 
     border-radius: 10px;
     overflow: hidden;
-    /* This ensures the container has a base border color when not rotating */
     background: var(--color-border-dashed); 
   }
 
   .animated-border-container::before {
     content: '';
     position: absolute;
-    inset: -150%; /* Large enough to cover corners during rotation */
+    inset: -150%; 
     background: conic-gradient(
       from 0deg,
       transparent 0deg,
       transparent 280deg,
-      var(--color-text-primary) 360deg /* FIXED: Added -color- prefix */
+      var(--color-text-primary) 360deg 
     );
     animation: rotate 3s linear infinite;
     z-index: 0;
-    /* Optional: adds a soft glow to the moving line */
+   
     filter: blur(2px); 
   }
 
   .inner-content {
     position: relative;
     z-index: 1;
-    /* FIXED: Added -color- prefix */
+ 
     background: var(--color-bg-primary); 
     border-radius: 9px;
     display: flex;
@@ -69,15 +68,14 @@ body {
     to { transform: rotate(360deg); }
   }
 }
-/* Hide scrollbar for Chrome, Safari and Opera */
+
 .no-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
-/* Hide scrollbar for IE, Edge and Firefox */
+
 .no-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  scrollbar-width: none;  
 }
 @keyframes shimmer {
   0% { opacity: 1; }
@@ -85,6 +83,15 @@ body {
   100% { opacity: 1; }
 }
 
-/* Also ensure your no-scrollbar utility is there */
 .no-scrollbar::-webkit-scrollbar { display: none; }
 .no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+@import "tailwindcss";
+
+@theme {
+  --animate-marquee: marquee 8s linear infinite;
+
+  @keyframes marquee {
+    from { transform: translateX(0%); }
+    to { transform: translateX(-100%); }
+  }
+}
