@@ -85,7 +85,7 @@ const App: React.FC = () => {
           </header>
 
           {/* Main Content */}
-          <main className="relative z-20 px-2 sm:px-4 md:px-[18%] pt-5 md:pt-10 pb-32">
+          <main className="relative z-20 px-2 sm:px-4 md:px-[18%] pt-7 md:pt-10 pb-32">
             <div className="w-full">
               <TryIt />
               <ProfileCard />
