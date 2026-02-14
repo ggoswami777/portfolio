@@ -1,4 +1,4 @@
-// lib/translations.ts
+
 export const content = {
   EN: {
     home: "Home",
@@ -17,7 +17,10 @@ export const content = {
     building: "Currently Building",
     spotify: "Last Played",
     activity: "Activity",
-    contribution: "contributions in the last year on GitHub"
+    contribution: "contributions in the last year on GitHub",
+    p1Description: "Full-stack Japanese learning platform for JLPT preparation and interactive lessons.",
+    p2Description: "High-performance e-commerce solution with secure checkout and inventory management.",
+    p3Description: "Remote interview tool with real-time coding, video calls, and chat.",
   },
   HI: {
     home: "होम",
@@ -36,7 +39,10 @@ export const content = {
     building: "वर्तमान में बना रहा हूँ",
     spotify: "पिछला चलाया गया गाना",
     activity: "गतिविधि",
-    contribution: "पिछले साल GitHub पर योगदान"
+    contribution: "पिछले साल GitHub पर योगदान",
+    p1Description: "JLPT तैयारी और इंटरैक्टिव पाठों के लिए फुल-स्टैक जापानी लर्निंग प्लेटफॉर्म।",
+    p2Description: "सुरक्षित चेकआउट और इन्वेंट्री प्रबंधन के साथ उच्च प्रदर्शन ई-कॉमर्स समाधान।",
+    p3Description: "कोडिंग, वीडियो कॉल और चैट के साथ रिमोट इंटरव्यू टूल।",
   },
   ES: {
     home: "Inicio",
@@ -55,7 +61,10 @@ export const content = {
     building: "Construyendo actualmente",
     spotify: "Última reproducción",
     activity: "Actividad",
-    contribution: "contribuciones en el último año en GitHub"
+    contribution: "contribuciones en el último año en GitHub",
+    p1Description: "Plataforma de aprendizaje de japonés para JLPT con lecciones interactivas.",
+    p2Description: "Solución de comercio electrónico rápida con pago seguro y gestión.",
+    p3Description: "Herramienta de entrevistas con codificación, videollamadas y chat en vivo.",
   },
   JA: {
     home: "ホーム",
@@ -64,7 +73,7 @@ export const content = {
     contact: "お問い合わせ",
     theme: "テーマ",
     greeting: "こんにちは、ガウラブです",
-    time: "GMT +5:30 • ムンバイ、インド",
+    time: "GMT +5:30 • ムンバイ, インド",
     tryIt: "試してみる:",
     playgame: "ゲームをする",
     role1: "ウェブ開発者",
@@ -74,7 +83,10 @@ export const content = {
     building: "現在制作中",
     spotify: "最近の再生",
     activity: "アクティビティ",
-    contribution: "過去 1 年間の GitHub での貢献"
+    contribution: "過去 1 年間の GitHub での貢献",
+    p1Description: "JLPT対策と対話型レッスンのための日本語学習プラットフォーム。",
+    p2Description: "安全な決済と在庫管理を備えた高性能Eコマース。",
+    p3Description: "リアルタイムコーディング、ビデオ通話、チャットを備えた面接ツール。",
   },
   KO: {
     home: "홈",
@@ -93,7 +105,10 @@ export const content = {
     building: "현재 구축 중",
     spotify: "최근 재생",
     activity: "활동",
-    contribution: "지난 1년 동안 GitHub 기여"
+    contribution: "지난 1년 동안 GitHub 기여",
+    p1Description: "JLPT 준비 및 대화형 학습을 위한 풀스택 일본어 플랫폼.",
+    p2Description: "안전한 결제 및 재고 관리를 제공하는 고성능 커머스.",
+    p3Description: "실시간 코딩, 화상 회의, 채팅을 지원하는 면접 도구.",
   },
   RU: {
     home: "Главная",
@@ -112,7 +127,10 @@ export const content = {
     building: "Сейчас строю",
     spotify: "Недавно играло",
     activity: "Активность",
-    contribution: "взнос на GitHub за последний год"
+    contribution: "взнос на GitHub за последний год",
+    p1Description: "Платформа для изучения японского языка и подготовки к JLPT.",
+    p2Description: "E-commerce решение с безопасной оплатой и управлением запасами.",
+    p3Description: "Инструмент для интервью с кодингом, видеозвонками и чатом.",
   }
 } as const;
 

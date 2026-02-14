@@ -12,6 +12,7 @@ import { StatusCards } from "./components/StatusCards";
 import { useTheme } from "./components/ThemeProvider";
 import { GitHubActivity } from "./components/GithubActivity";
 import MacOSDock from "./components/MacOsDock";
+import { Projects } from "./components/Projects";
 
 const App: React.FC = () => {
   const [showHello, setShowHello] = useState(true);
@@ -100,9 +101,13 @@ const App: React.FC = () => {
                <GitHubActivity />
             </div>
 
-            <div className="mt-5 mb-2 px-4">
+            <div className="mt-3 mb-2 px-4">
               <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
             </div>
+            <div className=" no-scrollbar md:py-4 px-2 md:px-10">
+               {/* <Projects/> */}
+            </div>
+
             
             <div className="hidden md:block">
               <MacOSDock onAppClick={handleAppClick}/>
