@@ -1,8 +1,7 @@
 "use client"
 
-import React from "react"
+import React, { useEffect, useRef } from "react"
 import useEmblaCarousel from "embla-carousel-react"
-import Autoplay from "embla-carousel-autoplay"
 import { motion } from "framer-motion"
 import { useLanguage } from "./LanguageContext"
 import { useProjectsData } from "./ProjectsData"
@@ -10,31 +9,62 @@ import { useProjectsData } from "./ProjectsData"
 export const Projects = () => {
   const projects = useProjectsData()
   const { t } = useLanguage()
+  const timerRef = useRef<ReturnType<typeof setInterval> | null>(null)
 
-  // Initialize Embla with loop and 5s Autoplay
-  const [emblaRef] = useEmblaCarousel({ loop: true, align: "center" }, [
-    Autoplay({ delay: 5000, stopOnInteraction: false }),
-  ])
+  const [emblaRef, emblaApi] = useEmblaCarousel({
+    loop: true,
+    align: "center",
+    skipSnaps: false,
+    dragFree: false,
+    containScroll: false,
+  })
+
+  const startAutoScroll = () => {
+    if (!emblaApi) return
+    if (timerRef.current) clearInterval(timerRef.current)
+    timerRef.current = setInterval(() => {
+      emblaApi.scrollNext()
+    }, 4000)
+  }
+
+  useEffect(() => {
+    if (!emblaApi) return
+    startAutoScroll()
+
+    emblaApi.on("pointerDown", () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    })
+
+    emblaApi.on("pointerUp", () => {
+      startAutoScroll()
+    })
+
+    return () => {
+      if (timerRef.current) clearInterval(timerRef.current)
+    }
+  }, [emblaApi])
+
+  const displayProjects = projects.length <= 3 ? [...projects, ...projects] : projects;
 
   return (
-    <section id="projects" className="py-20 overflow-hidden">
-      <div className="px-4 md:px-[18%] mb-12">
-        <motion.h2 
-          initial={{ opacity: 0, x: -20 }}
-          whileInView={{ opacity: 1, x: 0 }}
-          className="text-4xl font-bold tracking-tighter"
+    <section id="projects" className="overflow-hidden w-full">
+      <div className="px-4 mb-14">
+        <motion.h2
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          // Uses your theme's primary text color
+          className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text-primary)]"
         >
           {t("projects")}
         </motion.h2>
       </div>
 
-      {/* Viewport - This hides the overflow and allows "half-half" view */}
-      <div className="overflow-hidden cursor-grab active:cursor-grabbing" ref={emblaRef}>
+      <div className="overflow-hidden w-full" ref={emblaRef}>
         <div className="flex">
-          {projects.map((project) => (
-            <div 
-              key={project.id} 
-              className="flex-[0_0_85%] min-w-0 sm:flex-[0_0_60%] md:flex-[0_0_45%] px-3"
+          {displayProjects.map((project, index) => (
+            <div
+              key={`${project.id}-${index}`}
+              className="flex-[0_0_85%] sm:flex-[0_0_70%] md:flex-[0_0_52%] lg:flex-[0_0_48%] xl:flex-[0_0_42%] px-5"
             >
               <ProjectCard project={project} />
             </div>
@@ -46,56 +76,66 @@ export const Projects = () => {
 }
 
 const ProjectCard = ({ project }: { project: any }) => {
-  const { t } = useLanguage();
-  
   return (
-    <motion.div 
-      className="h-full rounded-2xl border border-white/10 bg-[#0a0a0a] overflow-hidden flex flex-col"
-      whileHover={{ borderColor: "rgba(255,255,255,0.2)" }}
+    <motion.a
+      href={project.link}
+      target="_blank"
+      rel="noopener noreferrer"
+      whileHover={{ y: -12 }}
+      transition={{ type: "spring", stiffness: 200, damping: 18 }}
+      className="
+        block
+        h-full
+        rounded-2xl
+        border
+        /* Uses your dashed border color variable for the default state */
+        border-[var(--color-border-dashed)]
+        overflow-hidden
+        /* Uses your theme's primary background color */
+        bg-[var(--color-bg-primary)]
+        transition-all
+        duration-300
+        /* Hover state uses the primary text color at low opacity for a subtle glow effect */
+        hover:border-[var(--color-text-primary)]
+      "
     >
-      {/* Top Section: Hero Image/UI (Like the screenshot) */}
-      <div className="relative aspect-video w-full bg-[#111] overflow-hidden border-b border-white/5 p-6 flex items-center justify-center">
-        {/* Placeholder for the "Open Graph" UI style in your image */}
-        <div className="w-full h-full rounded-lg border border-white/10 bg-black flex flex-col items-center justify-center text-center p-4">
-           <img 
-            src={project.image} 
-            alt={project.name} 
-            className="absolute inset-0 w-full h-full object-cover opacity-20 pointer-events-none"
-           />
-           <h3 className="text-xl md:text-2xl font-semibold z-10">{project.title}</h3>
-           <div className="mt-4 w-full h-8 bg-white/5 rounded-full border border-white/10 flex items-center px-4 text-[10px] opacity-40">
-              Enter any URL to inspect...
-           </div>
+      <div className="flex flex-col h-full">
+  
+        <div className="relative aspect-video w-full overflow-hidden border-b border-[var(--color-border-dashed)] bg-gray-100 dark:bg-neutral-900">
+          <img
+            src={project.image}
+            alt={project.name}
+            className="w-full h-full object-cover"
+          />
         </div>
-      </div>
 
-      {/* Bottom Section: Info */}
-      <div className="p-6 md:p-8 flex flex-col gap-4">
-        <div>
-          <h2 className="text-3xl font-bold tracking-tight mb-2">{project.name}</h2>
-          <p className="text-sm text-white/50 leading-relaxed max-w-[90%]">
+        <div className="p-6 md:p-7 flex flex-col flex-grow">
+          <h2 className="text-xl md:text-2xl font-semibold mb-2 text-[var(--color-text-primary)]">
+            {project.name}
+          </h2>
+          
+          <p className="text-sm opacity-60 leading-relaxed mb-6 flex-grow text-[var(--color-text-primary)]">
             {project.description}
           </p>
-        </div>
 
-        {/* Technologies Section */}
-        <div className="mt-4">
-          <p className="text-[10px] font-bold uppercase tracking-widest text-white/30 mb-3">
-            Technologies
-          </p>
-          <div className="flex flex-wrap gap-3">
-            {project.techIcons.map((tech: any) => (
-              <div key={tech.name} className="group relative">
-                <img 
-                  src={tech.icon} 
-                  alt={tech.name} 
-                  className="w-6 h-6 grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all cursor-help"
+          <div>
+            <p className="text-[10px] uppercase tracking-widest opacity-40 mb-3 text-[var(--color-text-primary)] font-bold">
+              Technologies
+            </p>
+            <div className="flex gap-3 flex-wrap">
+              {project.techIcons.map((tech: any) => (
+                <img
+                  key={tech.name}
+                  src={tech.icon}
+                  alt={tech.name}
+                  
+                  className="w-6 h-6 transition-transform duration-300 hover:scale-110 brightness-100 dark:brightness-90"
                 />
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </div>
-    </motion.div>
+    </motion.a>
   )
 }

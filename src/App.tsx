@@ -23,6 +23,10 @@ const App: React.FC = () => {
       const homeSection = document.getElementById("home");
       homeSection?.scrollIntoView({ behavior: "smooth" });
     }
+    if (id === "projects") {
+      const projectsSection = document.getElementById("projects");
+      projectsSection?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {
@@ -105,9 +109,26 @@ const App: React.FC = () => {
               <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
             </div>
             <div className=" no-scrollbar md:py-4 px-2 md:px-10">
-               {/* <Projects/> */}
+               <Projects/>
             </div>
-
+            <motion.div 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            transition={{ duration: 1 }}
+            className="mt-12 mb-20 text-center px-4"
+          >
+            <p className="text-sm md:text-base font-sn italic opacity-70 text-text-primary">
+              Make sure to star the projects you like. Check out my other cool work on my{" "}
+              <a 
+                href="https://github.com/ggoswami777" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="font-bold underline decoration-dashed underline-offset-4 hover:opacity-100 transition-opacity"
+              >
+                GitHub
+              </a>
+            </p>
+          </motion.div>
             
             <div className="hidden md:block">
               <MacOSDock onAppClick={handleAppClick}/>
