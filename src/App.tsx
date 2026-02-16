@@ -13,6 +13,7 @@ import { useTheme } from "./components/ThemeProvider";
 import { GitHubActivity } from "./components/GithubActivity";
 import MacOSDock from "./components/MacOsDock";
 import { Projects } from "./components/Projects";
+import Stacks from "./components/Stacks";
 
 const App: React.FC = () => {
   const [showHello, setShowHello] = useState(true);
@@ -26,6 +27,10 @@ const App: React.FC = () => {
     if (id === "projects") {
       const projectsSection = document.getElementById("projects");
       projectsSection?.scrollIntoView({ behavior: "smooth" });
+    }
+    if (id === "stack") {
+      const stackSection = document.getElementById("stack");
+      stackSection?.scrollIntoView({ behavior: "smooth" });
     }
   };
 
@@ -128,8 +133,15 @@ const App: React.FC = () => {
                 GitHub
               </a>
             </p>
+
           </motion.div>
-            
+          <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
+          <div className=" no-scrollbar md:py-4 px-2 md:px-10">
+               <Stacks/>
+            </div>
+            <div className="mt-3 mb-2 px-4">
+              <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
+            </div>
             <div className="hidden md:block">
               <MacOSDock onAppClick={handleAppClick}/>
             </div>
