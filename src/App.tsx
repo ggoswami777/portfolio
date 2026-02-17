@@ -14,6 +14,7 @@ import { GitHubActivity } from "./components/GithubActivity";
 import MacOSDock from "./components/MacOsDock";
 import { Projects } from "./components/Projects";
 import Stacks from "./components/Stacks";
+import { Contact } from "./components/Contact";
 
 const App: React.FC = () => {
   const [showHello, setShowHello] = useState(true);
@@ -141,6 +142,9 @@ const App: React.FC = () => {
             </div>
             <div className="mt-3 mb-2 px-4">
               <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
+            </div>
+            <div className=" no-scrollbar md:py-4 px-2 md:px-10">
+               <Contact/>
             </div>
             <div className="hidden md:block">
               <MacOSDock onAppClick={handleAppClick}/>

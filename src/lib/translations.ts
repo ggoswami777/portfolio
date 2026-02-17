@@ -1,4 +1,3 @@
-
 export const content = {
   EN: {
     home: "Home",
@@ -21,6 +20,12 @@ export const content = {
     p1Description: "Full-stack Japanese learning platform for JLPT preparation and interactive lessons.",
     p2Description: "High-performance e-commerce solution with secure checkout and inventory management.",
     p3Description: "Remote interview tool with real-time coding, video calls, and chat.",
+    Connect: "Let's connect!",
+    ConnectTitle: "Appreciate you stopping by. If a project sparked something or you just want to jam on builds, drop me a line.",
+    ConnectSubTitle: "Always keen to collaborate, learn, and ship new ideas.",
+    BookCall: "Book a Call",
+    Resume: "Resume",
+   
   },
   HI: {
     home: "होम",
@@ -43,6 +48,12 @@ export const content = {
     p1Description: "JLPT तैयारी और इंटरैक्टिव पाठों के लिए फुल-स्टैक जापानी लर्निंग प्लेटफॉर्म।",
     p2Description: "सुरक्षित चेकआउट और इन्वेंट्री प्रबंधन के साथ उच्च प्रदर्शन ई-कॉमर्स समाधान।",
     p3Description: "कोडिंग, वीडियो कॉल और चैट के साथ रिमोट इंटरव्यू टूल।",
+    Connect: "संपर्क करें!",
+    ConnectTitle: "यहाँ आने के लिए धन्यवाद। अगर किसी प्रोजेक्ट ने आपको प्रभावित किया या आप साथ काम करना चाहते हैं, तो मुझे लिखें।",
+    ConnectSubTitle: "हमेशा सहयोग करने, सीखने और नए विचारों पर काम करने के लिए उत्सुक।",
+    BookCall: "कॉल बुक करें",
+    Resume: "रेज़्यूमे",
+   
   },
   ES: {
     home: "Inicio",
@@ -65,6 +76,11 @@ export const content = {
     p1Description: "Plataforma de aprendizaje de japonés para JLPT con lecciones interactivas.",
     p2Description: "Solución de comercio electrónico rápida con pago seguro y gestión.",
     p3Description: "Herramienta de entrevistas con codificación, videollamadas y chat en vivo.",
+    Connect: "¡Conectemos!",
+    ConnectTitle: "Gracias por pasarte. Si un proyecto te llamó la atención o quieres colaborar, escríbeme.",
+    ConnectSubTitle: "Siempre dispuesto a colaborar, aprender y lanzar nuevas ideas.",
+    BookCall: "Agendar llamada",
+    Resume: "Currículum",
   },
   JA: {
     home: "ホーム",
@@ -87,6 +103,11 @@ export const content = {
     p1Description: "JLPT対策と対話型レッスンのための日本語学習プラットフォーム。",
     p2Description: "安全な決済と在庫管理を備えた高性能Eコマース。",
     p3Description: "リアルタイムコーディング、ビデオ通話、チャットを備えた面接ツール。",
+    Connect: "繋がりましょう！",
+    ConnectTitle: "お立ち寄りいただきありがとうございます。プロジェクトに興味を持たれた方や、一緒に開発したい方はお気軽にご連絡ください。",
+    ConnectSubTitle: "常にコラボレーション、学習、そして新しいアイデアの形にすることに熱心です。",
+    BookCall: "通話を予約する",
+    Resume: "履歴書",
   },
   KO: {
     home: "홈",
@@ -109,6 +130,11 @@ export const content = {
     p1Description: "JLPT 준비 및 대화형 학습을 위한 풀스택 일본어 플랫폼.",
     p2Description: "안전한 결제 및 재고 관리를 제공하는 고성능 커머스.",
     p3Description: "실시간 코딩, 화상 회의, 채팅을 지원하는 면접 도구.",
+    Connect: "함께 연결해요!",
+    ConnectTitle: "방문해 주셔서 감사합니다. 프로젝트에 관심이 있거나 함께 작업하고 싶다면 언제든 메시지를 남겨주세요.",
+    ConnectSubTitle: "항상 협업하고 배우며 새로운 아이디어를 구현할 준비가 되어 있습니다.",
+    BookCall: "상담 예약",
+    Resume: "이력서",
   },
   RU: {
     home: "Главная",
@@ -131,6 +157,11 @@ export const content = {
     p1Description: "Платформа для изучения японского языка и подготовки к JLPT.",
     p2Description: "E-commerce решение с безопасной оплатой и управлением запасами.",
     p3Description: "Инструмент для интервью с кодингом, видеозвонками и чатом.",
+    Connect: "Давайте свяжемся!",
+    ConnectTitle: "Спасибо, что заглянули. Если проект вас заинтересовал или вы хотите поработать вместе, напишите мне.",
+    ConnectSubTitle: "Всегда готов к сотрудничеству, обучению и реализации новых идей.",
+    BookCall: "Забронировать звонок",
+    Resume: "Резюме",
   }
 } as const;
 

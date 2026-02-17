@@ -2,6 +2,7 @@
 
 import React from "react"
 import { motion } from "framer-motion"
+import { useLanguage } from "./LanguageContext"
 
 
 const STACK_DATA = [
@@ -22,6 +23,7 @@ const STACK_DATA = [
 ]
 
 const Stacks: React.FC = () => {
+  const {t}=useLanguage();
   return (
     <section id="stack" className="py-12 px-4 ">
       <div className="mb-8">
@@ -30,7 +32,7 @@ const Stacks: React.FC = () => {
           whileInView={{ opacity: 1, x: 0 }}
           className="text-3xl md:text-4xl font-bold tracking-tight text-[var(--color-text-primary)]"
         >
-          Stack
+          {t("stack")}
         </motion.h2>
       </div>
 
