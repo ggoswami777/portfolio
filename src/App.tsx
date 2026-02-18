@@ -33,6 +33,10 @@ const App: React.FC = () => {
       const stackSection = document.getElementById("stack");
       stackSection?.scrollIntoView({ behavior: "smooth" });
     }
+    if (id === "contact") {
+      const contactSection = document.getElementById("contact");
+      contactSection?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   useEffect(() => {

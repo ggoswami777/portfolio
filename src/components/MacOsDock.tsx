@@ -60,7 +60,7 @@ const MacOSDock = ({ onAppClick }: { onAppClick: (id: string) => void }) => {
     { id: "home", name:home, icon: <Home size={19} />, url: "#" },
     { id: "projects", name:projects, icon: <Code2 size={19} />, url: "#projects" },
     { id: "stack", name:stack, icon: <Layers size={19} />, url: "#stack" },
-    { id: "contact", name:contact, icon: <Mail size={19} />, url: "mailto:gauravnick777@gmail.com" },
+    { id: "contact", name:contact, icon: <Mail size={19} />,  },
     { id: "divider", name: "divider", icon: null }, 
     { id: "github", name: "GitHub", icon: <Github size={19} />, url: "https://github.com/ggoswami777" },
     { id: "linkedin", name: "LinkedIn", icon: <Linkedin size={19} />, url: "https://www.linkedin.com/in/gaurav-goswami-4567a1364" },
