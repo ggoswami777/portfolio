@@ -4,6 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { ArrowUp } from "lucide-react";
 import { createClient } from '@supabase/supabase-js';
+import { useLanguage } from "./LanguageContext"; // Added for translations
 
 const SUPABASE_URL ='https://fanuydbddgfejaxmdubw.supabase.co';
 const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZhbnV5ZGJkZGdmZWpheG1kdWJ3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzEzOTIzODUsImV4cCI6MjA4Njk2ODM4NX0.uvzWXvcMHZKdgL1fUMCOM10zmVG0cf6smdVJ2g8IWD4';
@@ -22,20 +23,19 @@ export const BottomStatusCards = () => {
   const [claps, setClaps] = useState<number>(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const [audio, setAudio] = useState<HTMLAudioElement | null>(null);
+  const { t } = useLanguage(); // Using translation hook
 
- 
   useEffect(() => {
     const clickAudio = new Audio("/click.wav");
-    clickAudio.volume = 0.5; // Set volume to 50%
+    clickAudio.volume = 0.5;
     setAudio(clickAudio);
-    
     fetchClaps();
   }, []);
 
   const playClick = useCallback(() => {
     if (audio) {
-      audio.currentTime = 0; // Reset sound to start if clicked rapidly
-      audio.play().catch(e => console.log("Audio play blocked until user interaction"));
+      audio.currentTime = 0;
+      audio.play().catch(() => {});
     }
   }, [audio]);
 
@@ -66,18 +66,18 @@ export const BottomStatusCards = () => {
   };
 
   return (
-    <div className="flex flex-row items-center justify-center gap-4 py-12 px-4 w-full">
+    <div className="flex flex-row items-center justify-center gap-4 py-16 px-4 w-full">
       <GlassCard onClick={scrollToTop}>
-        <ArrowUp size={20} className="text-white/70 group-hover:text-white transition-colors" />
-        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/80 transition-colors font-medium">
-          Back to Top
+        <ArrowUp size={20} className="text-[var(--color-text-primary)] opacity-70 group-hover:opacity-100 transition-opacity" />
+        <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-primary)] opacity-40 group-hover:opacity-80 transition-opacity font-bold">
+          Back To Top
         </span>
       </GlassCard>
 
       <GlassCard onClick={handleClap}>
         <div className="flex items-center gap-2">
           <motion.div animate={isAnimating ? { scale: 1.4, rotate: -15 } : { scale: 1, rotate: 0 }}>
-            <ClappingHands className="w-5 h-5 text-white/70 group-hover:text-white transition-colors" />
+            <ClappingHands className="w-5 h-5 text-[var(--color-text-primary)] opacity-70 group-hover:opacity-100 transition-opacity" />
           </motion.div>
           
           <AnimatePresence mode="wait">
@@ -85,14 +85,14 @@ export const BottomStatusCards = () => {
               key={claps}
               initial={{ opacity: 0, y: -5 }}
               animate={{ opacity: 1, y: 0 }}
-              className="text-sm font-bold text-white/90"
+              className="text-sm font-bold text-[var(--color-text-primary)]"
             >
               {claps.toLocaleString()}
             </motion.span>
           </AnimatePresence>
         </div>
-        <span className="text-[10px] uppercase tracking-[0.2em] text-white/40 group-hover:text-white/80 transition-colors font-medium">
-          Appreciate?
+        <span className="text-[10px] uppercase tracking-[0.2em] text-[var(--color-text-primary)] opacity-40 group-hover:opacity-80 transition-opacity font-bold">
+          Appreciate
         </span>
       </GlassCard>
     </div>
@@ -104,7 +104,14 @@ const GlassCard = ({ children, onClick }: { children: React.ReactNode; onClick?:
     whileHover={{ y: -6, scale: 1.03 }}
     whileTap={{ scale: 0.95 }}
     onClick={onClick}
-    className="group relative flex flex-col items-center justify-center gap-2 w-[145px] h-[105px] md:w-[165px] md:h-[115px] rounded-3xl transition-all duration-500 bg-white/[0.02] backdrop-blur-[12px] border border-white/[0.05] hover:bg-white/[0.07] hover:border-white/[0.15] cursor-pointer"
+    className="group relative flex flex-col items-center justify-center gap-2 w-[145px] h-[105px] md:w-[165px] md:h-[115px] rounded-3xl transition-all duration-500 
+               bg-black/[0.03] dark:bg-white/[0.02] 
+               backdrop-blur-[12px] 
+               border border-black/[0.08] dark:border-white/[0.05] 
+               hover:bg-black/[0.06] dark:hover:bg-white/[0.07] 
+               hover:border-black/[0.15] dark:hover:border-white/[0.15] 
+               shadow-sm dark:shadow-none
+               cursor-pointer"
   >
     <div className="relative z-10 flex flex-col items-center gap-2">{children}</div>
   </motion.button>

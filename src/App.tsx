@@ -16,6 +16,7 @@ import { Projects } from "./components/Projects";
 import Stacks from "./components/Stacks";
 import { Contact } from "./components/Contact";
 import { BottomStatusCards } from "./components/BottomStatusCards";
+import MyLocationMap from "./components/MyLocationMap";
 
 const App: React.FC = () => {
   const [showHello, setShowHello] = useState(true);
@@ -154,6 +155,9 @@ const App: React.FC = () => {
             <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
             <div className=" no-scrollbar px-2 justify-center items-center md:px-10">
                <BottomStatusCards/>
+            </div>
+            <div className=" no-scrollbar px-2 justify-center items-center md:px-10">
+               <MyLocationMap/>
             </div>
             <div className="hidden md:block">
               <MacOSDock onAppClick={handleAppClick}/>

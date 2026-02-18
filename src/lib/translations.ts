@@ -25,6 +25,7 @@ export const content = {
     ConnectSubTitle: "Always keen to collaborate, learn, and ship new ideas.",
     BookCall: "Book a Call",
     Resume: "Resume",
+    current:"Current Base",
    
   },
   HI: {
@@ -53,7 +54,7 @@ export const content = {
     ConnectSubTitle: "हमेशा सहयोग करने, सीखने और नए विचारों पर काम करने के लिए उत्सुक।",
     BookCall: "कॉल बुक करें",
     Resume: "रेज़्यूमे",
-   
+   current:"वर्तमान निवास",
   },
   ES: {
     home: "Inicio",
@@ -81,6 +82,7 @@ export const content = {
     ConnectSubTitle: "Siempre dispuesto a colaborar, aprender y lanzar nuevas ideas.",
     BookCall: "Agendar llamada",
     Resume: "Currículum",
+    current:"Current Base",
   },
   JA: {
     home: "ホーム",
@@ -108,6 +110,7 @@ export const content = {
     ConnectSubTitle: "常にコラボレーション、学習、そして新しいアイデアの形にすることに熱心です。",
     BookCall: "通話を予約する",
     Resume: "履歴書",
+    current:"現在の拠点",
   },
   KO: {
     home: "홈",
@@ -135,6 +138,7 @@ export const content = {
     ConnectSubTitle: "항상 협업하고 배우며 새로운 아이디어를 구현할 준비가 되어 있습니다.",
     BookCall: "상담 예약",
     Resume: "이력서",
+    current:"현재 거주지",
   },
   RU: {
     home: "Главная",
@@ -162,6 +166,7 @@ export const content = {
     ConnectSubTitle: "Всегда готов к сотрудничеству, обучению и реализации новых идей.",
     BookCall: "Забронировать звонок",
     Resume: "Резюме",
+    current:"Текущая локация",
   }
 } as const;
 
