@@ -69,20 +69,20 @@ const MacOSDock = ({ onAppClick }: { onAppClick: (id: string) => void }) => {
   ]
 
   const handleAppClick = (app: any) => {
-    // 1. Handle Theme Switching
+   
     if (app.id === "theme") {
       setTheme(theme === "dark" ? "light" : "dark")
-      return // Stop here so it doesn't try to open a URL
+      return 
     }
 
-    // 2. Handle External Social Links
+   
     if (app.url && app.url.startsWith("http")) {
       window.open(app.url, "_blank", "noopener,noreferrer")
     } else if (app.url && app.url.startsWith("mailto")) {
         window.location.href = app.url
     }
 
-    // 3. Trigger standard callback
+
     onAppClick(app.id)
   }
 
@@ -119,7 +119,7 @@ const MacOSDock = ({ onAppClick }: { onAppClick: (id: string) => void }) => {
               "rounded-[24px] relative"
             )}
           >
-            {/* Top Shine Effect */}
+          
             <div className="absolute inset-0 rounded-[24px] bg-gradient-to-b from-white/[0.1] to-transparent pointer-events-none" />
 
             {apps.map((app, i) => {

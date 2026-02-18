@@ -1,8 +1,8 @@
 "use client"
 
-import React from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, Github, Linkedin, Home, Briefcase, Layers, Moon, Sun } from 'lucide-react'
+import { X, Github, Linkedin, Home, Briefcase, Layers, Moon, Sun, Mail } from 'lucide-react'
 import { useTheme } from './ThemeProvider'
 import { LanguageSelector } from './LanguageSelector'
 
@@ -13,8 +13,28 @@ interface SidebarProps {
 
 export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
   const { theme, setTheme } = useTheme()
+  const [audio, setAudio] = useState<HTMLAudioElement | null>(null)
+
+  useEffect(() => {
+    const clickAudio = new Audio("/click.wav")
+    clickAudio.volume = 0.5
+    setAudio(clickAudio)
+  }, [])
+
+  const playClick = useCallback(() => {
+    if (audio) {
+      audio.currentTime = 0
+      audio.play().catch(() => {})
+    }
+  }, [audio])
+
+  const handleThemeChange = () => {
+    playClick()
+    setTheme(theme === 'dark' ? 'light' : 'dark')
+  }
 
   const scrollTo = (id: string) => {
+    
     const section = document.getElementById(id)
     section?.scrollIntoView({ behavior: 'smooth' })
     onClose()
@@ -45,7 +65,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             <div className="flex justify-between items-center mb-8">
               <LanguageSelector />
               <button 
-                onClick={onClose}
+                onClick={() => { playClick(); onClose(); }}
                 className="p-2 rounded-lg bg-[var(--color-bg-primary)] border border-[var(--color-border-dashed)] text-[var(--color-text-primary)] hover:bg-[var(--color-text-primary)] hover:text-[var(--color-bg-primary)] transition-all"
               >
                 <X size={20} />
@@ -53,7 +73,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
             </div>
 
             {/* Content Groups */}
-            <div className="space-y-6">
+            <div className="space-y-6 overflow-y-auto pr-2">
               {/* Navigation */}
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-50 text-[var(--color-text-primary)] mb-4">Navigation</p>
@@ -61,6 +81,8 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
                   <NavBtn icon={<Home size={18}/>} label="Home" onClick={() => scrollTo('home')} />
                   <NavBtn icon={<Briefcase size={18}/>} label="Projects" onClick={() => scrollTo('projects')} />
                   <NavBtn icon={<Layers size={18}/>} label="Stack" onClick={() => scrollTo('stack')} />
+                  {/* Added Contact Navigation */}
+                  <NavBtn icon={<Mail size={18}/>} label="Contact" onClick={() => scrollTo('contact')} />
                 </div>
               </div>
 
@@ -68,7 +90,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-50 text-[var(--color-text-primary)] mb-4">Appearance</p>
                 <button
-                  onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+                  onClick={handleThemeChange}
                   className="flex items-center justify-between w-full p-3 rounded-xl bg-[var(--color-bg-primary)] border border-[var(--color-border-dashed)] text-[var(--color-text-primary)] transition-all hover:bg-black/5 dark:hover:bg-white/5"
                 >
                   <div className="flex items-center gap-3">
@@ -85,10 +107,20 @@ export const Sidebar: React.FC<SidebarProps> = ({ isOpen, onClose }) => {
               <div>
                 <p className="text-[10px] font-bold uppercase tracking-[0.2em] opacity-50 text-[var(--color-text-primary)] mb-4">Connect</p>
                 <div className="grid grid-cols-1 gap-2">
-                  <a href="https://github.com/ggoswami777" target="_blank" className="flex items-center gap-3 p-3 rounded-xl bg-[var(--color-bg-primary)] border border-[var(--color-border-dashed)] text-[var(--color-text-primary)] text-sm hover:bg-black/5 dark:hover:bg-white/5">
+                  <a 
+                    href="https://github.com/ggoswami777" 
+                    target="_blank" 
+                    onClick={playClick}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--color-bg-primary)] border border-[var(--color-border-dashed)] text-[var(--color-text-primary)] text-sm hover:bg-black/5 dark:hover:bg-white/5"
+                  >
                     <Github size={18} className="opacity-70"/> GitHub
                   </a>
-                  <a href="https://www.linkedin.com/in/gaurav-goswami-4567a1364" target="_blank" className="flex items-center gap-3 p-3 rounded-xl bg-[var(--color-bg-primary)] border border-[var(--color-border-dashed)] text-[var(--color-text-primary)] text-sm hover:bg-black/5 dark:hover:bg-white/5">
+                  <a 
+                    href="https://www.linkedin.com/in/gaurav-goswami-4567a1364" 
+                    target="_blank" 
+                    onClick={playClick}
+                    className="flex items-center gap-3 p-3 rounded-xl bg-[var(--color-bg-primary)] border border-[var(--color-border-dashed)] text-[var(--color-text-primary)] text-sm hover:bg-black/5 dark:hover:bg-white/5"
+                  >
                     <Linkedin size={18} className="opacity-70"/> LinkedIn
                   </a>
                 </div>

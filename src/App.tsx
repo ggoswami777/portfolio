@@ -15,6 +15,7 @@ import MacOSDock from "./components/MacOsDock";
 import { Projects } from "./components/Projects";
 import Stacks from "./components/Stacks";
 import { Contact } from "./components/Contact";
+import { BottomStatusCards } from "./components/BottomStatusCards";
 
 const App: React.FC = () => {
   const [showHello, setShowHello] = useState(true);
@@ -50,7 +51,7 @@ const App: React.FC = () => {
   return (
     <div className="relative min-h-screen bg-bg-primary text-text-primary overflow-x-hidden transition-colors duration-500">
       
-      {/* Background Guides */}
+      
       <div className="pointer-events-none absolute inset-0 z-0">
         <div className="absolute top-[80px] left-0 right-0 border-t border-dashed border-border-dashed" />
         <div className="hidden md:block absolute left-[18%] top-0 h-full border-l border-dashed border-border-dashed" />
@@ -70,7 +71,7 @@ const App: React.FC = () => {
           <motion.div 
             key="hello-screen"
             className="fixed inset-0 z-[100] flex items-center justify-center bg-black"
-            exit={{ opacity: 0 }} // Smooth transition out
+            exit={{ opacity: 0 }}
             transition={{ duration: 0.5 }}
           >
             <Hello onDone={() => setTimeout(() => setShowHello(false), 800)} />
@@ -78,18 +79,18 @@ const App: React.FC = () => {
         )}
       </AnimatePresence>
 
-      {/* Main Content Animation Wrapper */}
+     
       {!showHello && (
         <motion.div
-          initial={{ opacity: 0, y: -50 }} // Start 50px higher
-          animate={{ opacity: 1, y: 0 }}    // Drop down to original position
+          initial={{ opacity: 0, y: -50 }} 
+          animate={{ opacity: 1, y: 0 }}   
           transition={{ 
             duration: 1, 
-            ease: [0.22, 1, 0.36, 1], // Smooth "out-quint" easing
+            ease: [0.22, 1, 0.36, 1], 
             delay: 0.2 
           }}
         >
-          {/* Header */}
+       
           <header id="home" className="relative z-50 w-full flex flex-row justify-between items-start pt-6 px-4 md:px-[18%]">
             <div className="px-2 sm:px-5">
               <Time />
@@ -99,7 +100,7 @@ const App: React.FC = () => {
             </div>
           </header>
 
-          {/* Main Content */}
+      
           <main className="relative z-20 px-2 sm:px-4 md:px-[18%] pt-7 md:pt-10 pb-32">
             <div className="w-full">
               <TryIt />
@@ -149,6 +150,10 @@ const App: React.FC = () => {
             </div>
             <div className=" no-scrollbar md:py-4 px-2 md:px-10">
                <Contact/>
+            </div>
+            <div className="w-full border-t border-dashed border-border-dashed opacity-50" />
+            <div className=" no-scrollbar px-2 justify-center items-center md:px-10">
+               <BottomStatusCards/>
             </div>
             <div className="hidden md:block">
               <MacOSDock onAppClick={handleAppClick}/>
